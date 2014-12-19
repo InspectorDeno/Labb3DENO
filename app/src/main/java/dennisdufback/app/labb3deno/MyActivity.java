@@ -72,11 +72,16 @@ public class MyActivity extends Activity {
                     prompt.show();
                     closeContextMenu();
                 }
+                if(editText.getText().toString().isEmpty()){
+                    listLayout.removeAllViewsInLayout();
+                    listLayout.invalidate();
+                    listLayout.requestLayout();
+                }
+
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -121,7 +126,7 @@ public class MyActivity extends Activity {
                         listLayout.removeAllViewsInLayout();
 //                        result.setText("");
 //                        result.append("ID: " + ID.toString() + " input: " + input + "\n");
-                        List<String> temp = searchResults.get(jsonID);
+                        List<String> temp = searchResults.get(ID);
                         for (int i = 0; i < temp.size(); i++) {
 //                            result.append(temp.get(i) + "\n");
                             addName(temp.get(i));
