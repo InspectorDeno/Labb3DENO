@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <dennisdufback.app.labb3deno.ListItem
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3deno"
+        android:id="@+id/list_item"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        custom:listColor="@android:color/black"
+        custom:listText=""
+        custom:labelColor="@android:color/holo_orange_dark" />
+</LinearLayout>
