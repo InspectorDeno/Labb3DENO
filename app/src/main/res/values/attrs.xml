@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="listItem">
-        <attr name="listColor" format="color"/>
+        <attr name="backgroundColor" format="color"/>
         <attr name="listText" format="string"/>
-        <attr name="labelColor" format="color"/>
-    </declare-styleable>
+        <attr name="textColor" format="color"/>
+    </declare-styleable>g
 
-    
+
 </resources>

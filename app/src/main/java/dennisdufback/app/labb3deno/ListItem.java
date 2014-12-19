@@ -1,24 +1,17 @@
 package dennisdufback.app.labb3deno;
 
 import android.content.Context;
-import android.view.Gravity;
 import android.view.View;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import java.util.jar.Attributes;
-
-public class ListItem extends View{
-    private int listColor,labelColor;
+public class ListItem extends View {
+    private int backgroundColor,textColor;
     private String listText;
     private Paint listPaint;
-    private Context context;
-    private AttributeSet attrs;
     public ListItem(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -27,8 +20,8 @@ public class ListItem extends View{
 
         try {
             listText = a.getString(R.styleable.listItem_listText);
-            listColor = a.getInteger(R.styleable.listItem_listColor, 0);
-            labelColor = a.getInteger(R.styleable.listItem_labelColor, 0);
+            backgroundColor = a.getInteger(R.styleable.listItem_backgroundColor, 0);
+            textColor = a.getInteger(R.styleable.listItem_textColor, 0);
         } finally {
             a.recycle();
         }
@@ -40,41 +33,37 @@ public class ListItem extends View{
         float viewHeight = this.getHeight();
         listPaint.setStyle(Style.FILL);
         listPaint.setAntiAlias(true);
-        listPaint.setColor(listColor);
+        listPaint.setColor(backgroundColor);
 
         canvas.drawRect(0, 0, viewWidth, viewHeight, listPaint);
-        listPaint.setColor(labelColor);
+        listPaint.setColor(textColor);
         listPaint.setTextAlign(Paint.Align.LEFT);
-        listPaint.setTextSize(80);
+        listPaint.setTextSize(viewHeight*0.7f);
         canvas.drawText(listText,0,canvas.getHeight()/2+listPaint.getTextSize()/3,listPaint);
     }
-    public int getListColor(){
-        return listColor;
+    public int getBackgroundColor(){
+        return backgroundColor;
     }
-    public int getLabelColor(){
-        return labelColor;
+    public int getTextColor(){
+        return textColor;
     }
     public String getListText(){
         return listText;
     }
-    public void setListColor(int newColor){
-        listColor = newColor;
+    public void setBackgroundColor(int newColor){
+        backgroundColor = newColor;
         invalidate();
         requestLayout();
     }
-    public void setLabelColor(int newColor){
-        labelColor = newColor;
+    public void setTextColor(int newColor){
+        textColor = newColor;
         invalidate();
         requestLayout();
     }
-    public void setListText(String newLabel){
+    public void setListText(String newLabel) {
         listText = newLabel;
         invalidate();
         requestLayout();
     }
-    public void addName(String newName){
-        listText = listText + " " + newName;
-        invalidate();
-        requestLayout();
-    }
+
 }

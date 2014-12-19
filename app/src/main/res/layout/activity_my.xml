@@ -20,23 +20,28 @@
 
 
 
-        <!--<dennisdufback.app.labb3deno.ListItem-->
-        <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-        <!--xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3deno"-->
-        <!--android:id="@+id/namnlista"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--custom:listColor="@android:color/black"-->
-        <!--custom:listText=""-->
-        <!--custom:labelColor="@android:color/holo_orange_dark" />-->
+    <!--<dennisdufback.app.labb3deno.ListItem-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3"-->
+    <!--android:id="@+id/namnlista"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--custom:listColor="@android:color/black"-->
+    <!--custom:listText=""-->
+    <!--custom:labelColor="@android:color/holo_orange_dark" />-->
 
-
-    <LinearLayout
-        android:id="@+id/listLayout"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"></LinearLayout>
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/listLayout"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:clickable="true"></LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@+id/textViewNames"

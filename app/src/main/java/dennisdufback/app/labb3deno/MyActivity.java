@@ -1,6 +1,7 @@
 package dennisdufback.app.labb3deno;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -33,10 +34,10 @@ import java.util.Map;
 
 public class MyActivity extends Activity {
     private EditText editText;
-//    private TextView result;
+    //    private TextView result;
     private String input;
-    private Integer ID = 0;
     private Integer jsonID;
+    private Integer ID = 0;
     private ViewGroup listLayout;
 
     List<String> names;
@@ -48,6 +49,7 @@ public class MyActivity extends Activity {
         setContentView(R.layout.activity_my);
 //        result = (TextView) findViewById(R.id.textViewNames);
         listLayout = (ViewGroup) findViewById(R.id.listLayout);
+        listLayout.isVerticalScrollBarEnabled();
 
         editText = (EditText) findViewById(R.id.editText);
         editText.addTextChangedListener(new TextWatcher() {
@@ -84,10 +86,21 @@ public class MyActivity extends Activity {
     private void addName(String itemText){
 
         View itemLayout = LayoutInflater.from(this).inflate(R.layout.item_layout, listLayout,false);
-        ListItem name = (ListItem) itemLayout.findViewById(R.id.list_item);
+        final ListItem name = (ListItem) itemLayout.findViewById(R.id.list_item);
 
         name.setListText(itemText);
         listLayout.addView(itemLayout);
+        name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(),name.getListText(),Toast.LENGTH_SHORT).show();
+                editText.setText(name.getListText());
+                editText.setSelection(editText.getText().length());
+                name.setBackgroundColor(Color.DKGRAY);
+                name.setTextColor(Color.RED);
+            }
+        });
+
     }
 
     private void loadData() {
