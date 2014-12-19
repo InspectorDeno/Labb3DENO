@@ -34,9 +34,9 @@ import java.util.Map;
 public class MyActivity extends Activity {
     private EditText editText;
 //    private TextView result;
-    private Button btn;
     private String input;
     private Integer ID = 0;
+    private Integer jsonID;
     private ViewGroup listLayout;
 
     List<String> names;
@@ -108,7 +108,7 @@ public class MyActivity extends Activity {
                         listLayout.removeAllViewsInLayout();
 //                        result.setText("");
 //                        result.append("ID: " + ID.toString() + " input: " + input + "\n");
-                        List<String> temp = searchResults.get(ID);
+                        List<String> temp = searchResults.get(jsonID);
                         for (int i = 0; i < temp.size(); i++) {
 //                            result.append(temp.get(i) + "\n");
                             addName(temp.get(i));
@@ -140,8 +140,8 @@ public class MyActivity extends Activity {
 
             JSONObject jObject = new JSONObject(result);
             JSONArray jNames = jObject.getJSONArray("result");
-//            Integer jID = jObject.getInt("id");
-//            jasonID = jID;
+            Integer jID = jObject.getInt("id");
+            jsonID = jID;
             names = new ArrayList<>();
             for(int i = 0; i < jNames.length(); i++){
                 names.add(jNames.get(i).toString());
