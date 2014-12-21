@@ -16,10 +16,6 @@
         android:layout_height="wrap_content"
         android:hint="Enter Name"/>
 
-
-
-
-
     <!--<dennisdufback.app.labb3deno.ListItem-->
     <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
     <!--xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3"-->
@@ -42,6 +38,7 @@
             android:layout_gravity="center_horizontal"
             android:clickable="true"></LinearLayout>
     </ScrollView>
+
 
     <TextView
         android:id="@+id/textViewNames"
