@@ -107,7 +107,7 @@ public class MyActivity extends Activity {
                 editText.setText(name.getListText());
                 editText.setSelection(editText.getText().length());
                 name.setBackgroundColor(Color.DKGRAY);
-                name.setTextColor(Color.RED);
+//                name.setTextColor(Color.RED);
             }
         });
 

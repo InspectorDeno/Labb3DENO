@@ -16,16 +16,6 @@
         android:layout_height="wrap_content"
         android:hint="Enter Name"/>
 
-    <!--<dennisdufback.app.labb3deno.ListItem-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3"-->
-    <!--android:id="@+id/namnlista"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="40dp"-->
-    <!--custom:listColor="@android:color/black"-->
-    <!--custom:listText=""-->
-    <!--custom:labelColor="@android:color/holo_orange_dark" />-->
-
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="wrap_content"
