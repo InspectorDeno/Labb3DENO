@@ -15,6 +15,8 @@ public class MyActivity extends Activity {
 
         InteractiveSearcher interactiveSearcher = (InteractiveSearcher)
                 findViewById(R.id.interactiveSearcher);
+
+        interactiveSearcher.setMaxNumOfNames(8);
     }
 
 

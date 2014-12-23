@@ -43,7 +43,7 @@ public class InteractiveSearcher extends LinearLayout {
    /**
     * Maximum number of results displayed in the list
     */
-    private final int MAXIMUM_RESULTS = 10;
+    private int MAXIMUM_RESULTS = 0;
 
     /**
      * Integer which matches the network search with the right results
@@ -53,7 +53,7 @@ public class InteractiveSearcher extends LinearLayout {
     private EditText textField;
     private int jsonID;
     private ViewGroup listLayout;   // Viewgroup for our custom ListItem views
-    private List<String> names;
+//    private List<String> names;
     private Map<Integer, List<String>> searchResults = new HashMap<>();
 
     public InteractiveSearcher(final Context context, AttributeSet attrs) {
@@ -63,7 +63,8 @@ public class InteractiveSearcher extends LinearLayout {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.searcher_layout, this);
 
-        listLayout = (ViewGroup) findViewById(R.id.listLayout2);
+
+        listLayout = (ViewGroup) findViewById(R.id.listLayout);
         listLayout.setVerticalScrollBarEnabled(true);
 
         textField = (EditText) findViewById(R.id.textField);
@@ -103,7 +104,7 @@ public class InteractiveSearcher extends LinearLayout {
     /**
      * Loads data in a new thread with networkcall
      * depending on the typed input in the textfield
-     * @param input String with the searchphrase to search for
+     * @param input String with the search phrase to search for
      */
     private void loadData(final String input) {
         Thread t = new Thread(new Runnable() {
@@ -209,7 +210,7 @@ public class InteractiveSearcher extends LinearLayout {
             // Get the specific ID we used that matches the returned names
             jsonID = jObject.getInt("id");
 
-            names = new ArrayList<>();
+            List names = new ArrayList<>();
 
             // Add returned names to an ArrayList
             for(int i = 0; i < jNames.length(); i++){
@@ -222,6 +223,10 @@ public class InteractiveSearcher extends LinearLayout {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    // Set how many names will be shown at most
+    public void setMaxNumOfNames(Integer n){
+        MAXIMUM_RESULTS = n;
     }
 
 }
