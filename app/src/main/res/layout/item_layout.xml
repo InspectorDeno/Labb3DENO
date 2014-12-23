@@ -8,8 +8,7 @@
         xmlns:custom="http://schemas.android.com/apk/res/dennisdufback.app.labb3deno"
         android:id="@+id/list_item"
         android:layout_width="match_parent"
-        android:layout_height="120px"
-        custom:backgroundColor="#5a5a5a"
-        custom:listText=""
-        custom:textColor="#009ee0" />
+        android:layout_height="30dp"
+        custom:backgroundColor="#B8B8B8"
+        custom:textColor="#000000" />
 </LinearLayout>

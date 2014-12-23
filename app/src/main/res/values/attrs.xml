@@ -2,9 +2,8 @@
 <resources>
     <declare-styleable name="listItem">
         <attr name="backgroundColor" format="color"/>
-        <attr name="listText" format="string"/>
         <attr name="textColor" format="color"/>
-    </declare-styleable>g
+    </declare-styleable>
 
 
 </resources>

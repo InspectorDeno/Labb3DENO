@@ -10,29 +10,10 @@
     android:orientation="vertical"
     tools:context=".MyActivity">
 
-    <EditText
-        android:id="@+id/editText"
+    <dennisdufback.app.labb3deno.InteractiveSearcher
+        android:id="@+id/interactiveSearcher"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Enter Name"/>
-
-    <ScrollView
-        android:id="@+id/scrollView"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <LinearLayout
-            android:id="@+id/listLayout"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:clickable="true"></LinearLayout>
-    </ScrollView>
-
-
-    <TextView
-        android:id="@+id/textViewNames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    </dennisdufback.app.labb3deno.InteractiveSearcher>
 
 </LinearLayout>

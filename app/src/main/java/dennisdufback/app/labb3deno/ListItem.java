@@ -1,6 +1,7 @@
 package dennisdufback.app.labb3deno;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -19,7 +20,6 @@ public class ListItem extends View {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.listItem, 0, 0);
 
         try {
-            listText = a.getString(R.styleable.listItem_listText);
             backgroundColor = a.getInteger(R.styleable.listItem_backgroundColor, 0);
             textColor = a.getInteger(R.styleable.listItem_textColor, 0);
         } finally {
@@ -35,11 +35,15 @@ public class ListItem extends View {
         listPaint.setAntiAlias(true);
         listPaint.setColor(backgroundColor);
 
+        Paint black = new Paint();
+        black.setStyle(Style.FILL);
+        black.setColor(Color.BLACK);
+
         canvas.drawRect(0, 0, viewWidth, viewHeight, listPaint);
         listPaint.setColor(textColor);
         listPaint.setTextAlign(Paint.Align.LEFT);
         listPaint.setTextSize(viewHeight*0.7f);
-        canvas.drawText(listText,0,canvas.getHeight()/2+listPaint.getTextSize()/3,listPaint);
+        canvas.drawText(listText,10f,canvas.getHeight()/2+listPaint.getTextSize()/3,listPaint);
     }
     public int getBackgroundColor(){
         return backgroundColor;
