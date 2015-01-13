@@ -167,9 +167,9 @@ public class InteractiveSearcher extends LinearLayout {
     }
 
     /**
-     * Makes a call to fetch the result of the searchphrase typed in the
+     * Makes a call to fetch the result of the search phrase typed in the
      * textfield. Stores them in the HashMap declared in the class
-     * @param input String with the searchphrase to search for
+     * @param input String with the search phrase to search for
      * @param ID The unique ID for the search requested by the URL
      */
     private void doNetworkCall(String input, Integer ID){
