@@ -3,16 +3,15 @@ package dennisdufback.app.labb3deno;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+import android.widget.PopupWindow;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -26,7 +25,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.CharSequence;
 import java.lang.Integer;
-import java.lang.Override;
 import java.lang.Runnable;
 import java.lang.String;
 import java.lang.StringBuffer;
@@ -36,39 +34,44 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class InteractiveSearcher extends LinearLayout {
+public class InteractiveSearcher extends LinearLayout  {
 
     Context context;
 
-   /**
-    * Maximum number of results displayed in the list
-    */
-    private int MAXIMUM_RESULTS = 0;
+    /**
+     * Maximum number of results displayed in the list
+     */
+    private int MAXIMUM_RESULTS = 6;
 
     /**
      * Integer which matches the network search with the right results
      */
     private int ID = 0;
 
-    private EditText textField;
+    private EditText input;
     private int jsonID;
-    private ViewGroup listLayout;   // Viewgroup for our custom ListItem views
-//    private List<String> names;
+    private LinearLayout listLayout;
     private Map<Integer, List<String>> searchResults = new HashMap<>();
+    private LayoutInflater inflater;
+    private PopupWindow popup;
+
 
     public InteractiveSearcher(final Context context, AttributeSet attrs) {
         super(context, attrs);
         this.context = context;
 
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         inflater.inflate(R.layout.searcher_layout, this);
 
+        popup = new PopupWindow(context);
+        popup.setInputMethodMode(PopupWindow.INPUT_METHOD_NEEDED);
 
-        listLayout = (ViewGroup) findViewById(R.id.listLayout);
-        listLayout.setVerticalScrollBarEnabled(true);
+        listLayout = new LinearLayout(context);
+        listLayout.setOrientation(VERTICAL);
 
-        textField = (EditText) findViewById(R.id.textField);
-        textField.addTextChangedListener(new TextWatcher() {
+        input = (EditText) findViewById(R.id.input);
+        input.setHint("Type here");
+        input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -76,20 +79,17 @@ public class InteractiveSearcher extends LinearLayout {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                String input = s.toString();
+                String in = s.toString();
                 // If the user inputs a valid character we load data in a new thread
-                if(input.matches("[[:alpha:]]+")) {
-                    loadData(input);
+                if (in.matches("[[:alpha:]]+")) {
+                    loadData(in);
                     ID++;
                 }
-                // Clear the list if the textfield is empty
-                else if (textField.getText().length() == 0) {
+                // Clear the list if the textfield is empty or if the user tries to input invalid
+                // characters
+                else {
                     listLayout.removeAllViewsInLayout();
-                    updateLayout(listLayout);
-                } else {
-                    Toast prompt = Toast.makeText(context,"Bara bokstäver i namnet", Toast.LENGTH_SHORT);
-                    prompt.setGravity(Gravity.TOP,0,100);
-                    prompt.show();
+                    popup.dismiss();
                 }
             }
 
@@ -104,30 +104,34 @@ public class InteractiveSearcher extends LinearLayout {
     /**
      * Loads data in a new thread with networkcall
      * depending on the typed input in the textfield
-     * @param input String with the search phrase to search for
+     * @param query String with the search phrase to search for
      */
-    private void loadData(final String input) {
+    private void loadData(final String query) {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                doNetworkCall(input, ID);
-                listLayout.post(new Runnable() {
+                doNetworkCall(query, ID);
+                input.post(new Runnable() {
                     @Override
                     public void run() {
                         // Clear the list
                         listLayout.removeAllViewsInLayout();
-
                         /*
                          * Store the List of names in a temporary string. These names match their
                          * jsonID to make sure the program doesn't crash if the user inputs
                          * characters in quick succession.
                         */
                         List<String> temp = searchResults.get(jsonID);
-                        //
-                        for (int i = 0; (i < temp.size()) && i < MAXIMUM_RESULTS; i++) {
-                            addWord(temp.get(i));
+
+                        if (temp.isEmpty() || input.getText().toString().isEmpty()) {
+                            popup.dismiss();
+                        } else {
+
+                            for (int i = 0; (i < temp.size()) && i < MAXIMUM_RESULTS; i++) {
+                                addWord(temp.get(i));
+                            }
                         }
-                        updateLayout(listLayout);
+
                     }
                 });
             }
@@ -135,35 +139,35 @@ public class InteractiveSearcher extends LinearLayout {
         t.start();
     }
 
-    /**
-     * Updates the viewGroup
-     */
-    private void updateLayout(ViewGroup viewGroup){
-        viewGroup.invalidate();
-        viewGroup.requestLayout();
-    }
 
     /**
      * Adds a word to the list of results
      */
     private void addWord(String itemText){
-        // Here we inflate the item_layout.xml file, add a ListItem to it and then add the layout to the viewGroup
-        View itemLayout = LayoutInflater.from(context).inflate(R.layout.item_layout, listLayout,false);
-        final ListItem word = (ListItem) itemLayout.findViewById(R.id.list_item);
 
+        // Inflate the item_layout layout
+        View itemLayout = inflater.inflate(R.layout.item_layout,listLayout,false);
+        final ListItem word = (ListItem) itemLayout.findViewById(R.id.list_item);
         word.setListText(itemText);
+        // add it to our listLayout
         listLayout.addView(itemLayout);
 
-        // this makes the listItems clickable
-        word.setOnClickListener(new View.OnClickListener() {
+        // popupwindow
+        popup.setContentView(listLayout);
+        popup.setWidth(LayoutParams.WRAP_CONTENT);
+        popup.setHeight(LayoutParams.WRAP_CONTENT);
+        popup.setBackgroundDrawable(new BitmapDrawable());
+        popup.showAsDropDown(input);
+
+        word.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                textField.setText(word.getListText());
-                textField.setSelection(textField.getText().length());
+                input.setText(word.getListText());
+                input.setSelection(input.getText().length());
                 word.setBackgroundColor(Color.DKGRAY);
+
             }
         });
-
     }
 
     /**

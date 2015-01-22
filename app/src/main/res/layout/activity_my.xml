@@ -13,7 +13,6 @@
         android:id="@+id/interactiveSearcher"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-    </dennisdufback.app.labb3deno.InteractiveSearcher>
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>
